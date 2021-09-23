@@ -12,7 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   
-  camera:
+  camera: ^0.7.0+4
+  wakelock: ^0.2.1+1
 
 dev_dependencies:
   flutter_test:

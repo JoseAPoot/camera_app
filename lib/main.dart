@@ -1,11 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:camera/camera.dart';
+import 'package:wakelock/wakelock.dart';
 
 List<CameraDescription> cameras;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
 
   cameras = await availableCameras();
   runApp(CameraApp());
@@ -33,7 +41,9 @@ class _CameraAppState extends State<CameraApp> {
       if (!mounted) {
         return;
       }
-      setState(() {});
+      setState(() {
+        Wakelock.enable();
+      });
     });
   }
 
@@ -52,8 +62,8 @@ class _CameraAppState extends State<CameraApp> {
     return MaterialApp(
       title: 'Mi Cámara',
       theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.purpleAccent,
-        backgroundColor: Colors.purpleAccent,
+        primaryColor: Color.fromRGBO(33, 47, 61, 1.0),
+        backgroundColor: Color.fromRGBO(33, 47, 61, 1.0),
       ),
       home: GestureDetector(
         onScaleUpdate: (ScaleUpdateDetails one) {
